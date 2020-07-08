@@ -1,0 +1,41 @@
+﻿@model IEnumerable<UserViewModel>
+@inject SignInManager<ApplicationUser> signin;
+@{
+    ViewBag.Title = "Managment User";
+}
+<h3>@ViewBag.Title</h3>
+<a asp-controller="User" asp-action="Create" class="btn btn-warning" style="width:auto">Create User</a>
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                if (user.Email != User.Identity.Name)
+                {
+                    <tr>
+                        <td>@user.UserId</td>
+                        <td>@user.Email</td>
+                        <td>@user.City</td>
+                        <td>@user.Address</td>
+                        <td>@user.RolesName</td>
+                        <td>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-warning">Edit</a>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

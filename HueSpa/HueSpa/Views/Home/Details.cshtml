@@ -1,0 +1,60 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model HomeDetailViewModel
+@{
+    ViewBag.Title = ViewBag.TitleName;
+    var image = $"/images/{(Model.Product.ImagePath ?? "nonavatar.png")}";
+}
+
+<div class="row justify-content-center">
+    <div class="col-sm-6">
+        <div class="card my-2">
+            <div class="card-header">
+                <h3>@Model.Product.ProdName</h3>
+            </div>
+            <div class="card-body text-center">
+                <img src="@image" class="card-img-top" asp-append-version="true" />
+                <h3>@Model.Product.Price</h3>
+                <h3>@Model.Product.ProdInformation</h3>
+            </div>
+            <div class="card-footer text-center">
+                <a asp-controller="Category" asp-action="Products" asp-route-id="@Model.Product.CategoryId" class="btn btn-info">Back</a>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("System Admin")|| User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@Model.Product.Id" class="btn btn-success">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                            Delete
+                        </button>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Product.Id" method="post">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm delete product</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you want remove this product ?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

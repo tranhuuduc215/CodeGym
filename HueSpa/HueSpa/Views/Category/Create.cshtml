@@ -1,0 +1,47 @@
+﻿@model CategoryCreateViewModel
+@{
+    ViewBag.Create = "Create Category";
+    List<Category> categories = ViewBag.Categories;
+}
+
+    <div class="col-sm-6 offset-sm-3">
+        <form enctype="multipart/form-data" asp-controller="Category" asp-action="Create" method="post" class="mt-2">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label asp-for="CategoryName"></label>
+                </div>
+                <div class="col-sm-9">
+                    <input asp-for="CategoryName" class="form-control" placeholder="Enter Category Name">
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-3">
+                    <label asp-for="Image"></label>
+                </div>
+                <div class="col-sm-9">
+                    <div class="custom-file">
+                        <input class="custom-file-input" asp-for="Image">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-warning">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+    </script>
+}

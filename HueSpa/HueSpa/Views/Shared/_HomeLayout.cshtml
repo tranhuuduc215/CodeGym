@@ -1,0 +1,92 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/modern-business.css" rel="stylesheet" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/popper/umd/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">HueSpa</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="mainMenu">
+            <ul class="navbar-nav">
+
+                @if (signInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("System Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Create">Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Role" asp-action="Index">Role</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="User" asp-action="Index">User</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Create">Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="User" asp-action="Index">User</a>
+                        </li>
+                    }
+                }
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <li>
+                        <form asp-controller="Account" asp-action="LogOut" method="post">
+                            <button type="submit" class="btn btn-link text-light" style="width:auto">
+                                Logout @User.Identity.Name
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="border-top card-footer text-muted">
+        <span> &copy; C0220 @DateTime.Now.Year </span>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

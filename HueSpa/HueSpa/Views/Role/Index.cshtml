@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Role>
+@{
+    ViewBag.Title = "Role, management";
+}
+<h3>@ViewBag.Title</h3>
+<a asp-controller="Role" asp-action="Create" class="btn btn-warning" style="width:auto">Create Role</a>
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Role Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.RoleId</td>
+                    <td>@role.RoleName</td>
+                    <td>
+                        <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.RoleId" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Role" asp-action="Delete" asp-route-id="@role.RoleId" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

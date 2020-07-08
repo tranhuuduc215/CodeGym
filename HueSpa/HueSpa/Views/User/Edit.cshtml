@@ -1,0 +1,63 @@
+﻿@model UserEditViewModel
+
+@{
+    ViewBag.Create = "Edit User";
+    var roles = ViewBag.Roles as IQueryable<IdentityRole>;
+}
+
+    <div class="col-sm-8 offset-sm-2">
+        <form asp-controller="User" asp-action="Edit" method="post" class="mt-2">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input hidden asp-for="UserId" />
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="Email" class="form-control" placeholder="Enter Fullname">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label asp-for="City"></label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="City" class="form-control" placeholder="Enter Email">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label asp-for="Address"></label>
+                </div>
+                <div class="col-sm-10">
+                    <input asp-for="Address" class="form-control" placeholder="Enter Email">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label asp-for="RoleId"></label>
+                </div>
+                <div class="col-sm-10">
+                    <select asp-for="RoleId" class="custom-select">
+                        <option value="">Select a role</option>
+                        @if (roles != null && roles.Any())
+                        {
+                            foreach (var role in roles)
+                            {
+                                <option value="@role.Id" selected="@(role.Id == Model.RoleId)">@role.Name</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.UserId" class="btn btn-danger">Delete</a>
+                    <a asp-controller="User" asp-action="Index" class="btn btn-warning">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>

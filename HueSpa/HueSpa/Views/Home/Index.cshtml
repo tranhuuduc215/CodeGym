@@ -1,0 +1,33 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+@model IEnumerable<Product>;
+@{
+    ViewBag.Title = "Product list";
+    List<Category> categories = ViewBag.Categories;
+}
+
+        <div class="row">
+            @foreach (var prd in Model)
+            {
+                var image = $"/images/{(prd.ImagePath ?? "nonavatar.png")}";
+                <div class="col-sm-3">
+                    <div class="card my-2">
+                        <div class="card-header">
+                            <h3>@prd.ProdName</h3>
+                        </div>
+                        <img src="@image" class="card-img-top myImage" asp-append-version="true" />
+                        <div class="card-footer">
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-info">View</a>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                @if (User.IsInRole("System Admin") || User.IsInRole("Admin"))
+                                {
+                                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@prd.Id" class="btn btn-success">Edit</a>
+                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-danger">Delete</a>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>

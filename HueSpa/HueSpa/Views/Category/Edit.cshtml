@@ -1,0 +1,82 @@
+﻿@model CategoryEditViewModel
+@{
+    ViewBag.Create = "Edit Product";
+    var imagePath = $"/images/Category/{(Model.ImagePath ?? "nonavatar.png")}";
+    List<Category> categories = ViewBag.Categories;
+}
+<div class="col-sm-6 offset-sm-3">
+    <form enctype="multipart/form-data" asp-controller="Category" asp-action="Edit" method="post" class="mt-2">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input hidden asp-for="CategoryId" />
+        <input hidden asp-for="ImagePath" />
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="CategoryName"></label>
+            </div>
+            <div class="col-sm-9">
+                <input asp-for="CategoryName" class="form-control" placeholder="Enter Category Name">
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-3">
+                <label asp-for="Image"></label>
+            </div>
+            <div class="col-sm-9">
+                <div class="custom-file">
+                    <input class="custom-file-input" asp-for="Image">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
+        </div>
+        <div class="row-cols-4 offset-4">
+            <img src="@imagePath" class="myImage" id="avatar" asp-append-version="true" />
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                    Delete
+                </button>
+                <a asp-controller="Category" asp-action="Index" class="btn btn-warning">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- The Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Category" asp-action="Delete" asp-route-id="@Model.CategoryId" method="post">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm delete category</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Are you want remove this category ?
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                $("#avatar").attr("src", window.URL.createObjectURL($(this)[0].files[0]));
+            });
+        });
+    </script>
+}
