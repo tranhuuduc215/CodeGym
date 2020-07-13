@@ -1,10 +1,10 @@
-﻿@inject SignInManager<ApplicationUser> signInManager;
-@model IEnumerable<Product>;
+﻿@model ViewModel
 @{
     ViewBag.Title = "Product list";
     List<Category> categories = ViewBag.Categories;
+    Layout = "_Layout";
 }
-
+<h1 class="my-4">Catagory Product</h1>
 <div class="row">
     @foreach (var cate in categories)
     {
@@ -16,16 +16,28 @@
 
                 <img src="/images/category/@cate.Image" class="card-img-top myImage" asp-append-version="true" />
                 <div class="card-footer text-center">
-                    <a asp-controller="Category" asp-action="Products" asp-route-id="@cate.CategoryId" class="btn btn-info">View</a>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        @if (User.IsInRole("System Admin") || User.IsInRole("Admin"))
-                        {
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@cate.CategoryId" class="btn btn-success">Edit</a>
-                            <a asp-controller="Category" asp-action="Edit" asp-route-id="@cate.CategoryId" class="btn btn-danger">Delete</a>
-                        }
-                    }
+                    <a asp-controller="Category" asp-action="Products" asp-route-id="@cate.CategoryId" class="btn btn-info" style="width:100px">Xem thêm</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<h2>Sản phẩm</h2>
 
+<div class="row">
+    @foreach (var prd in Model.Products)
+    {
+        var image = $"/images/{(prd.ImagePath ?? "nonavatar.png")}";
+        <div class="col-sm-3 form-row">
+            <div class="card my-2">
+                <div class="card-header text-center">
+                    <h3>@prd.ProdName</h3>
+                </div>
+
+                <img src="@image" class="card-img-top myImage" asp-append-version="true" />
+                <h3 class="text-center">@prd.Price</h3>
+                <div class="card-footer text-center">
+                    <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-danger" style="width:90px">Chi tiết</a>
                 </div>
             </div>
         </div>

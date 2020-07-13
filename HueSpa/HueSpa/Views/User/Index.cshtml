@@ -30,8 +30,8 @@
                         <td>@user.Address</td>
                         <td>@user.RolesName</td>
                         <td>
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-warning">Edit</a>
-                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId" class="btn btn-danger">Delete</a>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId"><i class="fas fa-edit"></i></a>
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.UserId"><i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
                     </tr>
                 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {}
+    "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {}
   },
   "projects": {
-    "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {
+    "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
+        "projectUniqueName": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
         "projectName": "HueSpa",
-        "projectPath": "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
+        "projectPath": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\obj\\",
+        "outputPath": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",

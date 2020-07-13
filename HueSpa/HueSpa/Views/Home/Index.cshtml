@@ -1,33 +1,41 @@
-﻿@inject SignInManager<ApplicationUser> signInManager;
+﻿@inject ICategoryRepository CategoryRepository
 @model IEnumerable<Product>;
 @{
-    ViewBag.Title = "Product list";
+    ViewBag.Title = "Product management";
     List<Category> categories = ViewBag.Categories;
 }
-
-        <div class="row">
-            @foreach (var prd in Model)
+<h3>@ViewBag.Title</h3>
+<a asp-controller="Home" asp-action="Create" class="btn btn-warning" style="width:auto">Create Product</a>
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>ProdName</th>
+            <th>Price</th>
+            <th>Information</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var prd in Model)
             {
-                var image = $"/images/{(prd.ImagePath ?? "nonavatar.png")}";
-                <div class="col-sm-3">
-                    <div class="card my-2">
-                        <div class="card-header">
-                            <h3>@prd.ProdName</h3>
-                        </div>
-                        <img src="@image" class="card-img-top myImage" asp-append-version="true" />
-                        <div class="card-footer">
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-info">View</a>
-                            @if (signInManager.IsSignedIn(User))
-                            {
-                                @if (User.IsInRole("System Admin") || User.IsInRole("Admin"))
-                                {
-                                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@prd.Id" class="btn btn-success">Edit</a>
-                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-danger">Delete</a>
-                                }
-                            }
-
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td>@prd.Id</td>
+                    <td>@prd.ProdName</td>
+                    <td>@prd.Price</td>
+                    <td>@prd.ProdInformation</td>
+                    <td><img style="width:100px;height:80px" src="~/images/@prd.ImagePath" /></td>
+                    <td>@CategoryRepository.Get(prd.CategoryId).CategoryName</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@prd.Id"><i class="fas fa-edit"></i></a>
+                        <a asp-controller="Home" asp-action="Edit" asp-route-id="@prd.Id"><i class="fas fa-trash-alt text-danger"></i></a>
+                    </td>
+                </tr>
             }
-        </div>
+        }
+    </tbody>
+</table>

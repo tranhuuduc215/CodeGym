@@ -149,7 +149,7 @@ namespace HueSpa.Controllers
                 var editEmp = productRepository.Edit(product);
                 if (editEmp != null)
                 {
-                    return RedirectToAction("Details", new { id = product.Id });
+                    return RedirectToAction("Index", new { id = product.Id });
                 }
             }
             return View(model);
@@ -159,7 +159,7 @@ namespace HueSpa.Controllers
             var product = productRepository.Get(id);
             if (productRepository.Delete(id))
             {
-                return RedirectToActionPermanentPreserveMethod("Products","Category",new { id=product.Id});
+                return RedirectToActionPermanentPreserveMethod("Index","Home",new { id=product.Id});
             }
             return View();
         }

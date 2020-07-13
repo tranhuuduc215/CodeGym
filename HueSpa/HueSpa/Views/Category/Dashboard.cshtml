@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Category>;
+@{
+    ViewBag.Title = "Category Management";
+    List<Category> categories = ViewBag.Categories;
+}
+<h3>@ViewBag.Title</h3>
+<a asp-controller="Role" asp-action="Create" class="btn btn-warning" style="width:auto">Create Category</a>
+<table class="table table-bordered table-hover mt-2">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Category Name</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var ctgr in Model)
+            {
+        <tr>
+            <td>@ctgr.CategoryId</td>
+            <td>@ctgr.CategoryName</td>
+            <td><img style="width:100px;height:80px" src="~/images/category/@ctgr.Image" /></td>
+            <td>
+                <a asp-controller="Category" asp-action="Edit" asp-route-id="@ctgr.CategoryId"><i class="fas fa-edit"></i></a>
+                <a asp-controller="Category" asp-action="Edit" asp-route-id="@ctgr.CategoryId"><i class="fas fa-trash-alt text-danger"></i></a>
+            </td>
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+

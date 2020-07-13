@@ -1,5 +1,6 @@
 ﻿using HueSpa.Models;
 using HueSpa.ViewModels;
+using HueSpa.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +60,7 @@ namespace HueSpa.Controllers
                     }
                     category.Image = fileName;
                     var newCtgr = CategoryRepository.Create(category);
-                    return RedirectToAction("Index", new { id = newCtgr.CategoryId });
+                    return RedirectToAction("Dashboard", new { id = newCtgr.CategoryId });
                 }
                 else
                 {
@@ -118,7 +119,7 @@ namespace HueSpa.Controllers
                     var editCtgr = CategoryRepository.Edit(category);
                     if (editCtgr != null)
                     {
-                        return RedirectToAction("Index", new { id = category.CategoryId });
+                        return RedirectToAction("Dashboard", new { id = category.CategoryId });
                     }
             }
             return View(model);
@@ -128,14 +129,22 @@ namespace HueSpa.Controllers
         public IActionResult Index()
         {
             ViewBag.Categories = GetCategories();
-            return View(productRepository.Gets());
+            var model = new ViewModel()
+            {
+                Products = productRepository.Gets().Take(8)
+            };
+            return View(model);
         }
 
          [AllowAnonymous]
         public IActionResult Products(int id)
         {
             var products = (from p in productRepository.Gets() where p.CategoryId == id select p).ToList();
-            return View(products);
+            var model = new ViewModel()
+            {
+                Products = products,
+            };
+            return View(model);
         }
         public List<Category> GetCategories()
         {
@@ -146,9 +155,26 @@ namespace HueSpa.Controllers
         {
             if (CategoryRepository.Delete(id))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard");
             }
             return View();
+        }
+        public IActionResult Dashboard()
+        {
+            ViewBag.Categories = GetCategories();
+            return View(CategoryRepository.Get());
+        }
+
+        [AllowAnonymous]
+        public IActionResult Search(ViewModel model)
+        {
+            List<Product> products = (from pd in productRepository.Gets() 
+                                      where pd.ProdName.ToLower().Contains(model.KeySearch.ToLower()) select pd).ToList();
+            var search = new ViewModel()
+            {
+                Products = products
+            };
+            return View(search);
         }
     }
 }

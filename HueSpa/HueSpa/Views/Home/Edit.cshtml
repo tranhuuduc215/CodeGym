@@ -67,14 +67,40 @@
             <div class="row-cols-4 offset-4">
                 <img src="@imagePath" class="myImage" id="avatar" asp-append-version="true" />
             </div>
-            <div class="row form-group">
+            <div class="row form-group ">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Delete</button>
                     <a asp-controller="Home" asp-action="Index" class="btn btn-warning">Cancel</a>
                 </div>
             </div>
         </form>
     </div>
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirm delete product</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Are you want remove this product ?
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 @section Scripts{
     <script>
         $(document).ready(function () {

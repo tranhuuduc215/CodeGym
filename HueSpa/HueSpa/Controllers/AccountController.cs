@@ -14,11 +14,13 @@ namespace HueSpa.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -29,9 +31,19 @@ namespace HueSpa.Controllers
                 var result = await signInManager.PasswordSignInAsync(userName: model.Email, password: model.Password, isPersistent: model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var user = await userManager.FindByEmailAsync(model.Email);
                     if (!string.IsNullOrEmpty(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
+                    }
+
+                    var roles = await userManager.GetRolesAsync(user);
+                    if (roles != null && roles.Any())
+                    {
+                        if (roles.Contains("System Admin") || roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("Index", "home");
+                        }
                     }
                     return RedirectToAction("Index", "Category");
                 }
@@ -90,8 +102,8 @@ namespace HueSpa.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> LogOut()
+        [AllowAnonymous]
+        public async Task<IActionResult>LogOut()
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Category");

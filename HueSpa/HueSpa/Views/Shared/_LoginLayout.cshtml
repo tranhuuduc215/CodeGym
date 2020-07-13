@@ -1,0 +1,133 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/modern-business.css" rel="stylesheet" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" asp-controller="Category" asp-action="Index">HueSpa</a>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    @*<li class="nav-item">
+                            <a class="nav-link" href="#">Giới thiệu</a>
+                        </li>*@
+                    @*<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dịch vụ Spa
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="#">1 Column Portfolio</a>
+                                <a class="dropdown-item" href="#">2 Column Portfolio</a>
+                            </div>
+                        </li>*@
+                    @*<li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Store
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                                <a class="dropdown-item" href="#">Blog Home 1</a>
+                                <a class="dropdown-item" href="#">Blog Home 2</a>
+                                <a class="dropdown-item" href="#">Blog Post</a>
+                            </div>
+                        </li>*@
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        @if (User.IsInRole("Admin") || User.IsInRole("System Admin"))
+                        {
+                            <li>
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">Management</a>
+                            </li>
+                        }
+                        <li>
+                            <form asp-controller="Account" asp-action="LogOut" method="post">
+                                <button type="submit" class="btn btn-link text-light" style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="mt-xl-5">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active" style="background-image: url('/images/portfolio-details-1.jpg'); background-size:100% 100%">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Sữa tắm dưỡng da</h3>
+                        <p>Sản phẩm được nhiều chị em trên thế giới tin dùng</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('/images/portfolio-details-2.jpg'); background-size:100% 100%">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Kem trị mụn</h3>
+                        <p>Công dụng vượt trội đánh bật mọi loại mụn</p>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('/images/portfolio-details-3.jpg'); background-size:100% 100%">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>Sửa rửa mặt</h3>
+                        <p>Đánh bay bui bẩn, cho làn da sáng bóng</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">
+                <a href="http://www.huespa.somee.com" class="text-white">HUESPA.SOMEE.COM</a> – CHUỖI SPA LÀM ĐẸP HÀNG ĐẦU TẠI VIỆT NAM
+            </p>
+        </div>
+    </footer>
+    @RenderSection("Scripts", false);
+</body>
+</html>

@@ -9,5 +9,14 @@
         "umd/popper.min.js"
       ]
     }
+  ,
+{
+  "library": "font-awesome@5.13.1",
+  "destination": "wwwroot/css/font-awesome/",
+  "files": [
+    "css/all.min.css",
+    "css/fontawesome.min.css"
   ]
+}
+]
 }

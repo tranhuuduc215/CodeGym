@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ro4V+1qiQcTcQAY6iPwyAayYovMrXlcGO4NO7Va+sGQVpLSWKoDL/aa8xjJt/1VxWWZtQW1yRoWnxTcNxqFKXg==",
+  "dgSpecHash": "/FzJNNNKE5WjKlwgmFgAUQmEjptpESfIOOjldEW84fmTh35v2qtC8sy7CU1tvrqHpIsVx3c96Wt0AueLgWpbRg==",
   "success": true,
-  "projectFilePath": "C:\\CaseStudy\\WebHueSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
+  "projectFilePath": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.5\\microsoft.aspnetcore.cryptography.internal.3.1.5.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.5\\microsoft.aspnetcore.cryptography.keyderivation.3.1.5.nupkg.sha512",

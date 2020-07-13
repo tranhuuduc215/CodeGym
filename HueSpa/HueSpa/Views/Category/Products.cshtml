@@ -1,34 +1,28 @@
 ﻿@inject SignInManager<ApplicationUser> signInManager;
-@model List<Product>
+@model ViewModel
 @{
     ViewBag.Title = "Product";
+    Layout = "_Layout";
 }
-<div class="row">
-    @foreach (var prd in Model)
-    {
-        var image = $"/images/{(prd.ImagePath ?? "nonavatar.png")}";
-        <div class="col-sm-3 form-row">
-            <div class="card my-2">
-                <div class="card-header text-center">
-                    <h3>@prd.ProdName</h3>
-                </div>
+    <div class="row">
+        <a asp-controller="Category" asp-action="Index" class="btn btn-info">Back</a>
+    </div>
+    <div class="row">
+        @foreach (var prd in Model.Products)
+        {
+            var image = $"/images/{(prd.ImagePath ?? "nonavatar.png")}";
+            <div class="col-sm-3 form-row">
+                <div class="card my-2">
+                    <div class="card-header text-center">
+                        <h3>@prd.ProdName</h3>
+                    </div>
 
-                <img src="@image" class="card-img-top myImage" asp-append-version="true" />
-                <h3 class="text-center">@prd.Price</h3>
-                <div class="card-footer text-center">
-                    <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-info">View</a>
-                    <a asp-controller="Category" asp-action="Index" class="btn btn-info">Back</a>
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        @if (User.IsInRole("System Admin") || User.IsInRole("Admin"))
-                        {
-                            <a asp-controller="Home" asp-action="Edit" asp-route-id="@prd.Id" class="btn btn-success">Edit</a>
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-danger">Delete</a>
-                        }
-                    }
-
+                    <img src="@image" class="card-img-top myImage" asp-append-version="true" />
+                    <h3 class="text-center">@prd.Price</h3>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@prd.Id" class="btn btn-danger" style="width:90px">Chi tiết</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>

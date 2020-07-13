@@ -21,8 +21,8 @@
                     <td>@role.RoleId</td>
                     <td>@role.RoleName</td>
                     <td>
-                        <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.RoleId" class="btn btn-warning">Edit</a>
-                        <a asp-controller="Role" asp-action="Delete" asp-route-id="@role.RoleId" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Role" asp-action="Edit" asp-route-id="@role.RoleId"><i class="fas fa-edit"></i></a>
+                        <a asp-controller="Role" asp-action="Delete" asp-route-id="@role.RoleId"><i class="fas fa-trash-alt text-danger"></i></a>
                     </td>
                 </tr>
             }

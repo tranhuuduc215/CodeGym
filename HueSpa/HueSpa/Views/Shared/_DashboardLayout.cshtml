@@ -1,0 +1,95 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Management</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/css/modern-business.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet" />
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</head>
+<body style="background-color:lavender">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+            <a class="navbar-brand" asp-controller="Category" asp-action="Index">HueSpa</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse form-row" id="mainMenu">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Category" asp-action="Index">Trang chủ</a>
+                    </li>
+                    @*<li class="nav-item">
+                        <a class="nav-link" href="#">Dịch vụ Spa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Seoul Store</a>
+                    </li>*@
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (signInManager.IsSignedIn(User))
+                {
+                    @if (User.IsInRole("Admin") || User.IsInRole("System Admin"))
+                    {
+                    <li>
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Management</a>
+                    </li>
+                    }
+                    <li>
+                        <a asp-controller="Account" asp-action="LogOut" class="btn btn-light">
+                            Logout @User.Identity.Name
+                        </a>
+                    </li>
+                }
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Content Row -->
+        <div class="row">
+            <!-- Sidebar Column -->
+            <div class="col-lg-2 mb-4">
+                <div class="list-group">
+                    <a class="list-group-item" asp-controller="Category" asp-action="Index">Trang chủ</a>
+                    @*<a class="list-group-item" href="#">Dịch vụ Spa</a>
+                    <a class="list-group-item" href="#">Hue Store</a>*@
+                    <a class="list-group-item" asp-controller="Home" asp-action="Index">Management Product</a>
+                    <a class="list-group-item" asp-controller="Category" asp-action="Dashboard">Management Category</a>
+                    <a class="list-group-item" asp-controller="Role" asp-action="Index">Role</a>
+                    <a class="list-group-item" asp-controller="User" asp-action="Index">User</a>
+                </div>
+            </div>
+            <!-- Content Column -->
+            <div class="col-lg-10 mb-4">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+    @RenderSection("Scripts", false);
+</body>
+</html>
