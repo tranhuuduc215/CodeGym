@@ -23,6 +23,9 @@ namespace HueSpa
         public Startup(IConfiguration config)
         {
             this.config = config;
+
+
+
         }
 
         public IConfiguration Configuration { get; }
