@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {}
+    "D:\\CodeGym\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {}
   },
   "projects": {
-    "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {
+    "D:\\CodeGym\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
+        "projectUniqueName": "D:\\CodeGym\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
         "projectName": "HueSpa",
-        "projectPath": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
+        "projectPath": "D:\\CodeGym\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\HueSpa.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\obj\\",
+        "outputPath": "D:\\CodeGym\\CaseStudy\\WebSpa\\HueSpa\\HueSpa\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -75,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
